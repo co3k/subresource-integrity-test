@@ -1,1 +1,1 @@
-alert('http javascript executable');
+loadedCount++;

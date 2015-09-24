@@ -1,5 +1,25 @@
 <!doctype html>
 <meta charset="utf-8">
 <title>hello</title>
-<p>hello</p>
+<script>var loadedCount = 0;</script>
+<p><a href="http://www.w3.org/TR/SRI/">Subresource Integrity</a> の動作確認用ページです。</p>
+<p>外部 JavaScript (http:// 固定) を 3 回読み込んでいます。 1 回目は integrity 指定なし、 2 回目は正しい integrity を指定、 3 回目は誤った integrity を指定しています。</p>
+
+<script src="http://co3k.github.io/subresource-integrity-test/example.js"></script>
 <script src="http://co3k.github.io/subresource-integrity-test/example.js" integrity="sha256-pGKuTB9LRteVQov0H6LYfu0rfSu67zL1h30hc1ihOr8="></script>
+<script src="http://co3k.github.io/subresource-integrity-test/example.js" integrity="sha256-pGKuTB9LRteVQov0H6LYfu0rfSu67zL1h30hc1ihOr3="></script>
+
+<script>alert('スクリプトが' + loadedCount + '回読み込まれました！');</script>
+
+<p>スクリプトが読み込まれた回数によって以下のことがわかります。</p>
+<ul>
+    <li>HTTP ページ (<a href="http://co3k.github.io/subresource-integrity-test/">http://co3k.github.io/subresource-integrity-test/</a>) の場合: <ul>
+        <li>3 回読み込まれた : お使いのブラウザでは Subresource Integrity がサポートされていません。 <a href="http://githubengineering.com/subresource-integrity/">GitHub 曰く</a>、 Google Chrome 45 以降、 Mozilla Firefox 43 以降ではサポートされているようです。</li>
+        <li>2 回読み込まれた : お使いのブラウザでは Subresource Integrity がサポートされています。</li>
+    </ul></li>
+    <li>HTTPS ページ (<a href="https://co3k.github.io/subresource-integrity-test/">https://co3k.github.io/subresource-integrity-test/</a>) の場合: <ul>
+        <li>3 回もしくは 2 回読み込まれた : お使いのブラウザでは Subresource Integrity がサポートされていない上に HTTPS 内ページで HTTP のスクリプトが実行されてしまうセキュリティ上の問題があります。</li>
+        <li>1 回読み込まれた : お使いのブラウザでは Subresource Integrity がサポートされており、 HTTPS 内ページで HTTP のスクリプトを実行しようとした場合でも、 Subresource Integrity によって信頼性が担保されればスクリプトを実行してくれるようです。</li>
+        <li>0 回読み込まれた : お使いのブラウザでは Subresource Integrity がサポートされていないか、サポートされていたとしても HTTPS 内ページで HTTP のスクリプト実行はおこなわれません (Subresource Integrity によって信頼性が担保されていたとしても)。</li>
+    </ul></li>
+</ul>
